@@ -1,0 +1,24 @@
+### POST Subject
+POST http://localhost:7592/subject HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "id": "1",
+        "name": "Math",
+        "alternateLink": "https://classroom.google.com/",
+        "teacherName": "Mr. John",
+        "disabled": false
+    },
+    {
+        "id": "2",
+        "name": "Math",
+        "alternateLink": "https://classroom.google.com/",
+        "teacherName": "Mr. John",
+        "disabled": false
+    }
+]
+
+### GET Subject
+GET http://localhost:7592/subject HTTP/1.1
+content-type: application/json

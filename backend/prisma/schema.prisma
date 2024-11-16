@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define the Status Enum
+enum Status {
+  BACKLOG
+  TO_DO
+  IN_PROGRESS
+  DONE
+}
+
+// Define the SubmissionState Enum
+enum SubmissionState {
+  PENDING
+  TURNED_IN
+  LOST
+}
+
+// Define the Subject Model
+model Subject {
+  id            String   @id
+  name          String
+  alternateLink String
+  teacherName   String?  // Optional field
+  disabled      Boolean
+  posts         Post[]   // Relation to the Post model
+}
+
+// Define the Post Model
+model Post {
+  id            String         @id
+  title         String
+  creationTime  DateTime       
+  alternateLink String
+  materials     Int?           // Optional field
+  dueDate       DateTime?      // Nullable field
+  status        Status
+  submissionState SubmissionState? // Nullable enum field
+  subjectId     String
+  subject       Subject        @relation(fields: [subjectId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+

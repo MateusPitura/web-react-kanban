@@ -1,0 +1,21 @@
+# Use the official Node.js image
+FROM node:18
+
+# Create a working directory
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY backend/package*.json ./
+RUN npm install
+
+# Copy the backend code
+COPY backend/ .
+
+# Instalando as dependências do Prisma
+RUN npx prisma generate
+
+# Expose the port the server runs on
+EXPOSE 7592
+
+# Start the server
+CMD ["npm", "start"]

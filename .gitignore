@@ -1,0 +1,69 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Dotenv environment variable files
+.env
+.env.*.local
+*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Coverage directory used by testing tools
+coverage/
+
+# Temporary directories and files
+.tmp/
+temp/
+*.tmp
+
+# Parcel-bundled files
+.cache/
+
+# Next.js
+.next/
+
+# Vite cache
+.vite/
+
+# Storybook files
+.storybook/
+
+# Local .yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# SCSS generated files
+*.css.map
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

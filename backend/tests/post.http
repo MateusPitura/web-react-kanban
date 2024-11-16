@@ -1,0 +1,40 @@
+### POST Post
+POST http://localhost:7592/post HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "subjectId": "1",
+        "id": "2",
+        "title": "Math Homework",
+        "creationTime": "2021-09-01T00:00:00.000Z",
+        "alternateLink": "https://classroom.google.com/",
+        "materials": 1,
+        "dueDate": "2021-09-10T00:00:00.000Z",
+        "status": "BACKLOG",
+        "submissionState": "PENDING"
+    },
+    {
+        "subjectId": "1",
+        "id": "3",
+        "title": "Math Homework",
+        "creationTime": "2021-09-01T00:00:00.000Z",
+        "alternateLink": "https://classroom.google.com/",
+        "materials": 1,
+        "dueDate": "2021-09-10T00:00:00.000Z",
+        "status": "BACKLOG",
+        "submissionState": "PENDING"
+    }
+]
+
+### GET Post
+GET http://localhost:7592/post HTTP/1.1
+content-type: application/json
+
+### PUT Post
+PUT http://localhost:7592/post/1 HTTP/1.1
+content-type: application/json
+
+{
+    "status": "TO_DO"
+}
