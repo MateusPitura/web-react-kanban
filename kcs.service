@@ -1,0 +1,11 @@
+[Unit]
+Description=Kanbam Classroom Service
+
+[Service]
+WorkingDirectory=/home/mateus/Code/web-react-kanban
+ExecStart=/snap/bin/docker-compose up
+ExecStop=/snap/bin/docker-compose down
+User=mateus
+
+[Install]
+WantedBy=multi-user.target
