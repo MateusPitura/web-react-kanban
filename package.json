@@ -1,0 +1,15 @@
+{
+  "name": "web-react-kanban",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run --workspace=frontend dev & npm run --workspace=backend start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "workspaces": ["/backend", "/frontend"]
+}
