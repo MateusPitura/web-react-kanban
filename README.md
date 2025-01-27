@@ -41,11 +41,11 @@ This project is designed to fetch data from Google Classroom and store it in an 
 
 1. `git clone git@github.com:MateusPitura/web-react-kanban.git app`  
 
-2. `npm install`
+2. Configure your `.dotenv` in frontend folder with your credentials from Google Classroom API obtained in GCP
 
-3. Configure your `.dotenv` file with your credentials from Google Classroom API obtained in GCP
+3. `docker-compose up --build`
 
-4. `docker-compose up --build` 
+4. In backend folder: `npx prisma migrate dev --name init`
 
 ## Technologies Used
 
