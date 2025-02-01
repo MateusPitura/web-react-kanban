@@ -12,11 +12,13 @@ import {
 } from "../utils/queries";
 import { bundleGapiSubjects } from "../utils/bundleGapiSubjects";
 import { CircularProgress } from "@mui/material";
+import { useGlobalStore } from "../stores/global";
 
 export default function Header() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { setSubjects, setPosts } = useContext(Context);
+  const blockedCoursesIds = useGlobalStore((state) => state.blockedCourses);
 
   const handleOnAuth = (isSignedIn: boolean) => {
     setIsSignedIn(isSignedIn);
@@ -42,17 +44,17 @@ export default function Header() {
   };
 
   useEffect(() => {
-    onClickRefresh()
+    onClickRefresh();
   }, []);
 
   const onClickSync = async () => {
     setIsLoading(true);
-    const subjects = await bundleGapiSubjects();
+    const subjects = await bundleGapiSubjects(blockedCoursesIds);
     await saveSubjects(subjects);
     const posts = await bundleGapiPosts(subjects);
     await savePosts(posts);
     setIsLoading(false);
-    onClickRefresh()
+    onClickRefresh();
   };
 
   return (

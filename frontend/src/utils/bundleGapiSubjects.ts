@@ -1,14 +1,7 @@
 import { Subject } from "../types/model";
 import { fetchCourses, fetchTeachersByCourseId } from "./gapiRequests";
 
-const blockedCoursesIds = [
-  import.meta.env.VITE_BLOCKED_COURSE_ID_1,
-  import.meta.env.VITE_BLOCKED_COURSE_ID_2,
-  import.meta.env.VITE_BLOCKED_COURSE_ID_3,
-  import.meta.env.VITE_BLOCKED_COURSE_ID_4
-];
-
-export async function bundleGapiSubjects(): Promise<Subject[]> {
+export async function bundleGapiSubjects(blockedCoursesIds: string[]): Promise<Subject[]> {
   const courses = await fetchCourses(10);
 
   const teachersPromise = [];
