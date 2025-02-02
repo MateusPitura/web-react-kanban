@@ -1,7 +1,7 @@
 import { Subject } from "../types/model";
 import { fetchCourses, fetchTeachersByCourseId } from "./gapiRequests";
 
-export async function bundleGapiSubjects(blockedCoursesIds: string[]): Promise<Subject[]> {
+export async function bundleGapiSubjects(): Promise<Subject[]> {
   const courses = await fetchCourses(10);
 
   const teachersPromise = [];

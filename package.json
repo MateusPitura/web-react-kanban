@@ -13,8 +13,5 @@
   "workspaces": [
     "/backend",
     "/frontend"
-  ],
-  "dependencies": {
-    "zustand": "^5.0.3"
-  }
+  ]
 }
