@@ -35,7 +35,7 @@ export default function ColumnItem({
 
   return (
     <div
-      className="bg-surfaceBright p-4 rounded-lg grid grid-cols-12 grid-rows-4 gap-2 cursor-pointer border-2 hover:border-onSurface border-surfaceBright shadow-lg h-40 m-2 my-draggable"
+      className="bg-surfaceBright p-4 rounded-lg grid grid-cols-12 grid-rows-4 gap-2 cursor-pointer border-2 hover:border-onSurface border-surfaceBright shadow-lg h-40 my-draggable"
       id={`${status}-${id}`}
       draggable={true}
     >

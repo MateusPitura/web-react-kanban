@@ -17,12 +17,6 @@ export async function bundleGapiSubjects(): Promise<Subject[]> {
       (teacher) => teacher[0].courseId === course.id
     );
 
-    if (
-      blockedCoursesIds.some((blockedCourseId) => course.id === blockedCourseId)
-    ) {
-      continue;
-    }
-
     subjectsFormatted.push({
       id: course.id,
       name: course.name,

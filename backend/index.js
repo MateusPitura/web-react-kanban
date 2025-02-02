@@ -38,11 +38,7 @@ app.post("/post", async (req, res) => {
 
 app.get("/subject", async (req, res) => {
   try {
-    const subjects = await prisma.subject.findMany({
-      where: {
-        disabled: false,
-      },
-    });
+    const subjects = await prisma.subject.findMany();
     res.status(200).send(subjects);
   } catch (e) {
     console.log(e);
@@ -95,5 +91,25 @@ app.put("/post/:id", async (req, res) => {
     res.status(500).send({ error: "posts update" });
   }
 });
+
+app.put("/subject/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { disabled } = req.body;
+    const result = await prisma.subject.update({
+      where: {
+        id: id,
+      },
+      data: {
+        disabled,
+      },
+    });
+    res.status(200).send(result);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ error: "subject update" });
+  }
+});
+
 
 app.listen(7592, () => console.log("Server running on port 7592"));

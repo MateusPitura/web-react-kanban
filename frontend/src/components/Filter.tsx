@@ -7,16 +7,19 @@ import Button from "./Button";
 import { Subject } from "../types/model";
 import CheckIcon from "@mui/icons-material/Check";
 import { orderOptions } from "../types/filter";
+import { Block } from "@mui/icons-material";
+import { disableSubject } from "../utils/queries";
+import useRefresh from "../hooks/useRefresh";
 
 const orderOptionsMapped = [
   {
     id: 0,
-    name: orderOptions.DUE_DATE
-  }, 
+    name: orderOptions.DUE_DATE,
+  },
   {
     id: 1,
-    name: orderOptions.CREATION_DATE
-  }
+    name: orderOptions.CREATION_DATE,
+  },
 ];
 
 export default function Filter() {
@@ -27,6 +30,8 @@ export default function Filter() {
     selectedOrder,
     setSelectedOrder,
   } = useContext(Context);
+
+  const { handleRefresh } = useRefresh({});
 
   const onClickFilter = (subject: Subject) => {
     if (selectedFilter === subject.id) {
@@ -44,22 +49,39 @@ export default function Filter() {
     setSelectedOrder(order);
   };
 
+  const onClickBlock = async (subject: Subject) => {
+    if (subject.disabled) {
+      await disableSubject(subject.id, false);
+    } else {
+      await disableSubject(subject.id, true);
+    }
+    handleRefresh();
+  };
+
   return (
     <div>
       <div className="p-4 flex items-center gap-2">
         <PopoverFilter
-          options={subjects.map((subject) => (
-            <div className="flex items-center gap-2" key={subject.id}>
-              <Button
-                onClick={() => onClickFilter(subject)}
-                variant="tertiary"
-                key={subject.id}
-              >
-                {subject.name} - {subject.teacherName}
-              </Button>
-              {selectedFilter === subject.id && <CheckIcon fontSize="small" />}
-            </div>
-          ))}
+          options={subjects.map((subject) => {
+            return (
+              !subject.disabled && (
+                <>
+                  <div className="flex items-center gap-2" key={subject.id}>
+                    <Button
+                      onClick={() => onClickFilter(subject)}
+                      variant="tertiary"
+                      key={subject.id}
+                    >
+                      {subject.name} - {subject.teacherName}
+                    </Button>
+                    {selectedFilter === subject.id && (
+                      <CheckIcon fontSize="small" />
+                    )}
+                  </div>
+                </>
+              )
+            );
+          })}
         >
           <FilterListIcon />
         </PopoverFilter>
@@ -73,11 +95,29 @@ export default function Filter() {
               >
                 {orderOption.name}
               </Button>
-              {selectedOrder === orderOption.name && <CheckIcon fontSize="small" />}
+              {selectedOrder === orderOption.name && (
+                <CheckIcon fontSize="small" />
+              )}
             </div>
           ))}
         >
           <SwapVertIcon />
+        </PopoverFilter>
+        <PopoverFilter
+          options={subjects.map((subject) => (
+            <div className="flex items-center gap-2" key={subject.id}>
+              <Button
+                onClick={() => onClickBlock(subject)}
+                variant="tertiary"
+                key={subject.id}
+              >
+                {subject.name} - {subject.teacherName}
+              </Button>
+              {subject.disabled && <Block fontSize="small" />}
+            </div>
+          ))}
+        >
+          <Block />
         </PopoverFilter>
       </div>
     </div>

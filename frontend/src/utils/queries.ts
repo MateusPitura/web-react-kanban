@@ -41,3 +41,18 @@ export async function updatePost(id: string, status: Status): Promise<void> {
     }),
   });
 }
+
+export async function disableSubject(
+  id: string,
+  disabled: boolean
+): Promise<void> {
+  await fetch(`http://localhost:7592/subject/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      disabled,
+    }),
+  });
+}
