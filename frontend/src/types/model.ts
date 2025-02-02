@@ -8,6 +8,7 @@ export enum Status {
 export enum SubmissionState {
   CREATED = "CREATED",
   TURNED_IN = "TURNED_IN",
+  RETURNED = 'RETURNED'
 }
 
 export interface Subject {

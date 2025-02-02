@@ -74,7 +74,7 @@ export default function Header() {
         postsFormatted.push(
           updatePostSubmissionState(
             courseWorkStatus[0].courseWorkId,
-            courseWorkStatus[0].state === "TURNED_IN"
+            courseWorkStatus[0].state === "TURNED_IN" || courseWorkStatus[0].state === "RETURNED"
               ? SubmissionState.TURNED_IN
               : SubmissionState.CREATED
           )
