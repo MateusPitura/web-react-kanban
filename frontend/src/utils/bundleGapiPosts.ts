@@ -5,7 +5,9 @@ import {
   fetchCourseWorksByCourseId,
 } from "./gapiRequests";
 
-export async function bundleGapiPosts(subjects: Subject[]): Promise<Omit<Post, 'subject'>[]> {
+export async function bundleGapiPosts(
+  subjects: Subject[]
+): Promise<Omit<Post, "subject">[]> {
   const announcementsPromise = [];
   for (const subject of subjects) {
     announcementsPromise.push(fetchAnnouncementsByCourseId(subject.id));
@@ -67,6 +69,16 @@ export async function bundleGapiPosts(subjects: Subject[]): Promise<Omit<Post, '
   for (const courseWork of courseWorks) {
     if (courseWork) {
       for (const courseWorkItem of courseWork) {
+        let date = null;
+        if (courseWorkItem.dueDate) {
+          date = new Date(
+            courseWorkItem.dueDate.year,
+            courseWorkItem.dueDate.month - 1,
+            courseWorkItem.dueDate.day
+          );
+          date.setDate(date.getDate() - 1);
+        }
+
         postsFormatted.push({
           subjectId: courseWorkItem.courseId,
           id: courseWorkItem.id,
@@ -74,13 +86,7 @@ export async function bundleGapiPosts(subjects: Subject[]): Promise<Omit<Post, '
           creationTime: new Date(courseWorkItem.creationTime),
           alternateLink: courseWorkItem.alternateLink,
           materials: courseWorkItem.materials?.length || null,
-          dueDate: courseWorkItem.dueDate
-            ? new Date(
-                courseWorkItem.dueDate.year,
-                courseWorkItem.dueDate.month - 1,
-                courseWorkItem.dueDate.day
-              )
-            : null,
+          dueDate: date,
           status: Status.BACKLOG,
           submissionState: SubmissionState.PENDING,
         });

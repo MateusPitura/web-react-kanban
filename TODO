@@ -4,3 +4,9 @@ INTEGRAÇÃO COM FIREBASE:
 - Fazer uma modal para a 1ª conexão, para escolher mover tudo para DONE
 - Fazer paginação
 - Fazer um indicativo do status do fetch (erro, carregando etc.)
+
+BUGS
+- Data de entrega: para posts que possuem data de entrega, ele pode vir com um dia a mais, pois é
+necessário a partir do horário saber o dia correto, porém o horário pode vir em vários formatos, 
+como undefined, relativo, absoluto, vazio, apenas hours ou apenas minutes. Por isso diminuo um dia
+de toda data, a fim de não causar erros

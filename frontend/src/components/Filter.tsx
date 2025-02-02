@@ -2,7 +2,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import PopoverFilter from "./PopoverFilter";
 import { Context } from "../context/Context";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import Button from "./Button";
 import { Subject } from "../types/model";
 import CheckIcon from "@mui/icons-material/Check";
@@ -65,8 +65,8 @@ export default function Filter() {
           options={subjects.map((subject) => {
             return (
               !subject.disabled && (
-                <>
-                  <div className="flex items-center gap-2" key={subject.id}>
+                <Fragment key={subject.id}>
+                  <div className="flex items-center gap-2">
                     <Button
                       onClick={() => onClickFilter(subject)}
                       variant="tertiary"
@@ -78,7 +78,7 @@ export default function Filter() {
                       <CheckIcon fontSize="small" />
                     )}
                   </div>
-                </>
+                </Fragment>
               )
             );
           })}

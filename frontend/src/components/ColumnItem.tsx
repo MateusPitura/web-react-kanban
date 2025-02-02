@@ -35,16 +35,16 @@ export default function ColumnItem({
 
   return (
     <div
-      className="bg-surfaceBright p-4 rounded-lg grid grid-cols-12 grid-rows-4 gap-2 cursor-pointer border-2 hover:border-onSurface border-surfaceBright shadow-lg h-40 my-draggable"
+      className="bg-surfaceBright p-2 rounded-lg grid grid-cols-12 grid-rows-4 gap-2 cursor-pointer border-2 hover:border-onSurface border-surfaceBright shadow-lg h-40 my-draggable"
       id={`${status}-${id}`}
       draggable={true}
     >
-      <div className="col-span-8">
+      <div className="col-span-7">
         <div className="bg-primary w-fit px-1 rounded-lg text-onPrimary line-clamp-1 overflow-hidden text-ellipsis">
           {course} - {teacher}
         </div>
       </div>
-      <div className="col-span-4">
+      <div className="col-span-5">
         <div className="flex justify-end items-center gap-2 text-onSurface">
           {dueDate && (
             <>
