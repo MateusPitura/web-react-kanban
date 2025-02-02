@@ -2,8 +2,10 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import { format } from "date-fns";
-import { Status } from "../types/model";
+import { Status, SubmissionState } from "../types/model";
 import Button from "./Button";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 interface ColumnItemProperties {
   id: string;
   course: string;
@@ -14,6 +16,7 @@ interface ColumnItemProperties {
   attachments: number | null;
   link: string;
   status: Status;
+  submissionState: SubmissionState | null;
 }
 
 export default function ColumnItem({
@@ -26,6 +29,7 @@ export default function ColumnItem({
   attachments,
   link,
   status,
+  submissionState,
 }: ColumnItemProperties) {
   const onClickRedirect = () => {
     const linkParts = link.split("classroom.google.com/");
@@ -48,7 +52,11 @@ export default function ColumnItem({
         <div className="flex justify-end items-center gap-2 text-onSurface">
           {dueDate && (
             <>
-              <ScheduleIcon fontSize="small" />
+              {submissionState === SubmissionState.TURNED_IN ? (
+                <CheckCircleOutlineIcon fontSize="small" />
+              ) : (
+                <ScheduleIcon fontSize="small" />
+              )}
               <div>
                 {format(dueDate, "dd/MM")} {format(dueDate, "E")}
               </div>

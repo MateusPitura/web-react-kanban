@@ -4,15 +4,21 @@ import { useAuthGoogle } from "../hooks/useAuthGoogle";
 import { gapi } from "gapi-script";
 import { bundleGapiPosts } from "../utils/bundleGapiPosts";
 import { Context } from "../context/Context";
-import { savePosts, saveSubjects } from "../utils/queries";
+import {
+  savePosts,
+  saveSubjects,
+  updatePostSubmissionState,
+} from "../utils/queries";
 import { bundleGapiSubjects } from "../utils/bundleGapiSubjects";
 import { CircularProgress } from "@mui/material";
 import useRefresh from "../hooks/useRefresh";
+import { fetchStudentsSubmissionsMe } from "../utils/gapiRequests";
+import { SubmissionState } from "../types/model";
 
 export default function Header() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { subjects } = useContext(Context);
+  const { subjects, posts } = useContext(Context);
   const { handleRefresh } = useRefresh({ setIsLoading });
 
   const handleOnAuth = (isSignedIn: boolean) => {
@@ -51,6 +57,34 @@ export default function Header() {
     handleRefresh();
   };
 
+  const onClickSubmission = async () => {
+    const pendingPosts = posts.filter(
+      (item) => item.submissionState === "CREATED"
+    );
+    const courseWorksStatusPromise = [];
+    for (const post of pendingPosts) {
+      courseWorksStatusPromise.push(
+        fetchStudentsSubmissionsMe(post.subjectId, post.id)
+      );
+    }
+    const courseWorksStatus = await Promise.all(courseWorksStatusPromise);
+    const postsFormatted = [];
+    for (const courseWorkStatus of courseWorksStatus) {
+      if (courseWorkStatus && courseWorkStatus.length > 0) {
+        postsFormatted.push(
+          updatePostSubmissionState(
+            courseWorkStatus[0].courseWorkId,
+            courseWorkStatus[0].state === "TURNED_IN"
+              ? SubmissionState.TURNED_IN
+              : SubmissionState.CREATED
+          )
+        );
+      }
+    }
+    await Promise.all(postsFormatted);
+    handleRefresh();
+  };
+
   return (
     <div className="bg-surface h-20 justify-start w-full flex p-4">
       <div className="flex-1 flex justify-end items-center gap-x-4">
@@ -63,14 +97,21 @@ export default function Header() {
           onClick={onClickSyncSubjects}
           disabled={isLoading}
         >
-          Sync Subjects
+          Subjects
         </Button>
         <Button
           variant="tertiary"
           onClick={onClickSyncPosts}
           disabled={isLoading}
         >
-          Sync Posts
+          Posts
+        </Button>
+        <Button
+          variant="tertiary"
+          onClick={onClickSubmission}
+          disabled={isLoading}
+        >
+          Submission
         </Button>
         <Button
           variant="primary"

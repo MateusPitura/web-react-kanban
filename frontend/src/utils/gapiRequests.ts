@@ -61,7 +61,7 @@ export const fetchCourseWorksByCourseId = async (
 export const fetchStudentsSubmissionsMe = async (
   courseId: string,
   courseWorkId: string,
-  userId: string
+  userId: string = 'me'
 ): Promise<StudentSubmissions[] | undefined> => {
   const response =
     await gapi.client.classroom.courses.courseWork.studentSubmissions.list({

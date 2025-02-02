@@ -1,4 +1,4 @@
-import { Post, Status, Subject } from "../types/model";
+import { Post, Status, Subject, SubmissionState } from "../types/model";
 
 export async function fetchAllSubjects(): Promise<Subject[]> {
   const result = await fetch("http://localhost:7592/subject");
@@ -30,7 +30,10 @@ export async function savePosts(posts: Omit<Post, "subject">[]): Promise<void> {
   });
 }
 
-export async function updatePost(id: string, status: Status): Promise<void> {
+export async function updatePostStatus(
+  id: string,
+  status: Status
+): Promise<void> {
   await fetch(`http://localhost:7592/post/${id}`, {
     method: "PUT",
     headers: {
@@ -38,6 +41,21 @@ export async function updatePost(id: string, status: Status): Promise<void> {
     },
     body: JSON.stringify({
       status,
+    }),
+  });
+}
+
+export async function updatePostSubmissionState(
+  id: string,
+  submissionState: SubmissionState
+): Promise<void> {
+  await fetch(`http://localhost:7592/post/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      submissionState,
     }),
   });
 }

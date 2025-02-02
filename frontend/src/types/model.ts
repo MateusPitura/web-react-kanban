@@ -6,9 +6,8 @@ export enum Status {
 }
 
 export enum SubmissionState {
-  PENDING = "PENDING",
+  CREATED = "CREATED",
   TURNED_IN = "TURNED_IN",
-  LOST = "LOST",
 }
 
 export interface Subject {

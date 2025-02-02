@@ -2,7 +2,7 @@ import { Post, Status, Subject, SubmissionState } from "../types/model";
 import {
   fetchAnnouncementsByCourseId,
   fetchCourseWorkMaterialsByCourseId,
-  fetchCourseWorksByCourseId,
+  fetchCourseWorksByCourseId
 } from "./gapiRequests";
 
 export async function bundleGapiPosts(
@@ -88,7 +88,7 @@ export async function bundleGapiPosts(
           materials: courseWorkItem.materials?.length || null,
           dueDate: date,
           status: Status.BACKLOG,
-          submissionState: SubmissionState.PENDING,
+          submissionState: SubmissionState.CREATED,
         });
       }
     }

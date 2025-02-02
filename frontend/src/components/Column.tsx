@@ -64,6 +64,7 @@ export default function Column({
             attachments={post.materials}
             link={post.alternateLink}
             status={post.status}
+            submissionState={post.submissionState}
           />
         ))}
       </div>

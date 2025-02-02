@@ -76,16 +76,28 @@ app.get("/post", async (req, res) => {
 app.put("/post/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
-    const result = await prisma.post.update({
-      where: {
-        id: id,
-      },
-      data: {
-        status,
-      },
-    });
-    res.status(200).send(result);
+    const { status, submissionState } = req.body;
+    if (status) {
+      const result = await prisma.post.update({
+        where: {
+          id: id,
+        },
+        data: {
+          status,
+        },
+      });
+      res.status(200).send(result);
+    } else if (submissionState) {
+      const result = await prisma.post.update({
+        where: {
+          id: id,
+        },
+        data: {
+          submissionState,
+        },
+      });
+      res.status(200).send(result);
+    }
   } catch (e) {
     console.log(e);
     res.status(500).send({ error: "posts update" });
@@ -110,6 +122,5 @@ app.put("/subject/:id", async (req, res) => {
     res.status(500).send({ error: "subject update" });
   }
 });
-
 
 app.listen(7592, () => console.log("Server running on port 7592"));

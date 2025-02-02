@@ -17,9 +17,8 @@ enum Status {
 
 // Define the SubmissionState Enum
 enum SubmissionState {
-  PENDING
+  CREATED
   TURNED_IN
-  LOST
 }
 
 // Define the Subject Model

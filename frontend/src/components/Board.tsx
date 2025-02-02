@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Context } from "../context/Context";
 import Column from "./Column";
 import { Status } from "../types/model";
-import { fetchAllPosts, updatePost } from "../utils/queries";
+import { fetchAllPosts, updatePostStatus } from "../utils/queries";
 
 const filterStatus = (status?: string) => {
   return Object.entries(Status).filter(([, value]) => value !== status);
@@ -65,7 +65,7 @@ export default function Board() {
     if (!event.target) return;
     const columnTargetDrop = (event.target as HTMLDivElement).id;
     if (columnTargetDrop && currentPostId.current) {
-      await updatePost(currentPostId.current, columnTargetDrop as Status);
+      await updatePostStatus(currentPostId.current, columnTargetDrop as Status);
       const posts = await fetchAllPosts();
       setPosts(posts);
     }
