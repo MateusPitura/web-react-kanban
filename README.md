@@ -10,8 +10,6 @@
   <img src="https://img.shields.io/github/stars/MateusPitura/web-react-kanban?style=social"> 
 </p> 
 
-> :construction: This app is under development :construction: 
-
 ## Description
 
 This project is designed to fetch data from Google Classroom and store it in an internal database. The data is then displayed in a Kanban view to help users manage assignments, tasks, and progress more effectively
